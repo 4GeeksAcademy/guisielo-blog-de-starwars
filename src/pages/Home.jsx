@@ -9,7 +9,20 @@ export const Home = () => {
 		<div className="container">
 			<Entities
 				title="People"
-				data={store.people}
+				data={[
+					{
+						uid: "1",
+						name: "Luke Skywalker"
+					},
+					{
+						uid: "2",
+						name: "C-3PO"
+					},
+					{
+						uid: "3",
+						name: "R2-D2"
+					}
+				]}
 				type="people"
 			/>
 			<Entities
