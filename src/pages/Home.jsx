@@ -1,16 +1,27 @@
-import rigoImageUrl from "../assets/img/rigo-baby.jpg";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
+import Entities from "../components/Entities.jsx"
 
 export const Home = () => {
 
   const {store, dispatch} =useGlobalReducer()
 
 	return (
-		<div className="text-center mt-5">
-			<h1>Hello Rigo!!</h1>
-			<p>
-				<img src={rigoImageUrl} />
-			</p>
+		<div className="container">
+			<Entities
+				title="People"
+				data={store.people}
+				type="people"
+			/>
+			<Entities
+				title="Planets"
+				data={store.planets}
+				type="planets"
+			/>
+			<Entities
+				title="Vehicles"
+				data={store.vehicles}
+				type="vehicles"
+			/>
 		</div>
 	);
 }; 
