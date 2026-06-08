@@ -1,28 +1,45 @@
+import { useEffect } from "react";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
-import Entities from "../components/Entities.jsx"
+import Entities from "../components/Entities.jsx";
 
 export const Home = () => {
 
-  const {store, dispatch} =useGlobalReducer()
+	const {store, dispatch} =useGlobalReducer()
 
-	return (
+	useEffect(() => {	
+		fetch("https://www.swapi.tech/api/people")
+            .then(response => response.json())
+            .then(data => {
+                dispatch({
+                    type: "SET_PEOPLE",
+                    payload: data.results
+                });
+            });
+
+		fetch("https://www.swapi.tech/api/planets")
+            .then(response => response.json())
+            .then(data => {
+                dispatch({
+                    type: "SET_PLANETS",
+                    payload: data.results
+                });
+            });
+
+		fetch("https://www.swapi.tech/api/vehicles")
+            .then(response => response.json())
+            .then(data => {
+                dispatch({
+                    type: "SET_VEHICLES",
+                    payload: data.results
+                });
+            });
+	}, []);
+
+  	return (
 		<div className="container">
 			<Entities
 				title="People"
-				data={[
-					{
-						uid: "1",
-						name: "Luke Skywalker"
-					},
-					{
-						uid: "2",
-						name: "C-3PO"
-					},
-					{
-						uid: "3",
-						name: "R2-D2"
-					}
-				]}
+				data={store.people}
 				type="people"
 			/>
 			<Entities
