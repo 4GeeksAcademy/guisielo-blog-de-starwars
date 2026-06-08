@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 const Card = ({item, type})=> {
     const { store, dispatch } = useGlobalReducer();
+    const isFavorite = store.favorites.includes(item.name);
         
     const addFavorite = () => {
         dispatch({
@@ -33,10 +34,20 @@ const Card = ({item, type})=> {
                         Learn More!
                     </Link>
                     <button
-                        className="btn btn-outline-warning"
+                        className={
+                            isFavorite
+                                ? "btn btn-warning"
+                                : "btn btn-outline-warning"
+                        }
                         onClick={addFavorite}
                     >
-                        <i className="fa-regular fa-heart"></i>
+                        <i
+                            className={
+                                isFavorite
+                                    ? "fa-solid fa-heart"
+                                    : "fa-regular fa-heart"
+                            }
+                        ></i>
                     </button>
                 </div>
             </div>
