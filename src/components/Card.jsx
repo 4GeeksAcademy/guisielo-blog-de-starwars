@@ -5,14 +5,22 @@ const Card = ({item, type})=> {
     const { store, dispatch } = useGlobalReducer();
     const isFavorite = store.favorites.includes(item.name);
         
-    const addFavorite = () => {
-        dispatch({
-            type: "ADD_FAVORITE",
-            payload: item.name
-        });
+    const toggleFavorite = () => {
+        if (isFavorite) {
+            dispatch({
+                type: "REMOVE_FAVORITE",
+                payload: item.name
+            });
+        } else {
+            dispatch({
+                type: "ADD_FAVORITE",
+                payload: item.name
+            });
+        }
+
     };
 
-        return (
+    return (
         <div className="card starwars-card">
            <img
                 src={`https://raw.githubusercontent.com/breatheco-de/swapi-images/master/public/images/${type}/${item.uid}.jpg`}
@@ -34,12 +42,8 @@ const Card = ({item, type})=> {
                         Learn More!
                     </Link>
                     <button
-                        className={
-                            isFavorite
-                                ? "btn btn-warning"
-                                : "btn btn-outline-warning"
-                        }
-                        onClick={addFavorite}
+                        className="btn btn-outline-warning"
+                        onClick={toggleFavorite}
                     >
                         <i
                             className={
